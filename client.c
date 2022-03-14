@@ -34,20 +34,21 @@ void powerClient()
     strcpy(buffer, "HELLO, THIS IS CLIENT.");
     printf("Client: %s\n", buffer);
     send(sock, buffer, strlen(buffer), 0);
-    char input[20];
-    bzero(input, 20);
+    char input[50];
+    bzero(input, 50);
     scanf("%[^\n]%*c", input);
+    int len = strlen(input);
     while (strncmp(input, "LOCAL", 5) != 0)
     {
 
         bzero(buffer, 1024);
-        for (int i = 0; i < strlen(input); i++)
+        for (int i = 0; i < len; i++)
         {
             buffer[i] = input[i];
         }
         printf("Client: %s\n", buffer);
         send(sock, buffer, strlen(buffer), 0);
-        bzero(input, 20);
+        bzero(input, 50);
         scanf("%[^\n]%*c", input);
     }
     bzero(buffer, 1024);

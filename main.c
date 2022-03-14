@@ -23,11 +23,9 @@ void dirFunc()
     closedir(dir);
     return;
 }
-
-int main()
+void pathFunc()
 {
     char cwd[PATH_MAX];
-    char input[20] = {0};
     if (getcwd(cwd, sizeof(cwd)) != NULL)
     {
         printf("Current working dir: %s\n", cwd);
@@ -35,22 +33,29 @@ int main()
     else
     {
         perror("getcwd() error");
-        return 1;
+        exit(1);
     }
+}
+
+int main()
+{
+
+    char input[50] = {0};
+    pathFunc();
     scanf("%[^\n]%*c", input);
-    for (int i = 0; i < 10; i++)
+    int len = strlen(input);
+    for (int i = 0; i < len; i++)
     {
         printf("%c", input[i]);
     }
     printf("\n");
-
-    int len = strlen(input);
     while (strcmp(input, "EXIT"))
     {
         if (strncmp(input, "ECHO", 4) == 0)
         {
             printf(">>");
-            for (int i = 4; i < len; i++)
+            // printf("%d\n", len);
+            for (int i = 4; i < 50; i++)
             {
                 printf("%c", input[i]);
             }
@@ -65,11 +70,33 @@ int main()
         {
             powerClient();
         }
+        /*
+         chdir() changes the current working directory
+         of the calling process to the directory specified in path
+         so it is system call.
+        */
+        else if (strncmp(input, "CD", 2) == 0)
+        {
+            char path[50];
+            bzero(path, 50);
+            int j = 0;
+            for (int i = 3; i < strlen(input); i++, j++)
+            {
+                path[j] = input[i];
+            }
+            chdir(path);
+            pathFunc();
+        }
+        /*
+        The  system() library function uses fork(2)
+        to create a child process that executes the shell command specified
+        in command.
+        */
         else
         {
-            printf(">> commmand not found\n");
+            system(input);
         }
-        bzero(input, 20);
+        bzero(input, 50);
         scanf("%[^\n]%*c", input);
     }
     printf("good bye\n");
