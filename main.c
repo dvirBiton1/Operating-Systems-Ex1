@@ -36,10 +36,27 @@ void pathFunc()
         exit(1);
     }
 }
+void copySrcToDst(char *src, char *dst)
+{
+    char ch;
+    FILE *fpSrc = fopen(src, "r");
+    FILE *fpDst = fopen(dst, "a");
+    if (fpSrc == NULL || fpDst == NULL)
+    {
+        printf("Error in copy files\n");
+        exit(1);
+    }
+    while ((ch = fgetc(fpSrc)) != EOF)
+    {
+        fputc(ch, fpDst);
+    }
+    printf("File copied successfully.\n");
+    fclose(fpSrc);
+    fclose(fpDst);
+}
 
 int main()
 {
-
     char input[50] = {0};
     pathFunc();
     scanf("%[^\n]%*c", input);
@@ -88,12 +105,56 @@ int main()
             pathFunc();
         }
         /*
-        The  system() library function uses fork(2)
+        fopen, fread, fwrite is libary function.
+        */
+        else if (strncmp(input, "COPY", 4) == 0)
+        {
+            char srcFile[50];
+            char dstFile[50];
+            bzero(srcFile, 50);
+            bzero(dstFile, 50);
+            int j = 5;
+            int i = 0;
+            int flag1 = 1;
+            while (input[j] != ' ')
+            {
+
+                srcFile[i] = input[j];
+                i++;
+                j++;
+            }
+            j++;
+            i = 0;
+            while (input[j] != '\0')
+            {
+                dstFile[i] = input[j];
+                i++;
+                j++;
+            }
+            copySrcToDst(srcFile, dstFile);
+        }
+        /*
+        unlink is system function.
+        */
+        else if (strncmp(input, "DELETE", 6) == 0)
+        {
+            char path[50];
+            bzero(path, 50);
+            int j = 0;
+            for (int i = 7; i < strlen(input); i++, j++)
+            {
+                path[j] = input[i];
+            }
+            unlink(path);
+        }
+        /*
+        The system() is library function uses fork(2)
         to create a child process that executes the shell command specified
         in command.
         */
         else
         {
+            // execl(input, input, NULL);
             system(input);
         }
         bzero(input, 50);
