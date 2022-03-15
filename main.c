@@ -5,6 +5,7 @@
 #include <stdlib.h>
 #include <sys/types.h>
 #include <dirent.h>
+#include <sys/wait.h>
 #include "Ex1.h"
 void dirFunc()
 {
@@ -154,8 +155,28 @@ int main()
         */
         else
         {
-            // execl(input, input, NULL);
-            system(input);
+            /* fork a child process */
+            int pid = fork();
+            if (pid < 0)
+            {
+                /* error occurred */
+                return 1;
+            }
+            else if (pid == 0)
+            {
+                /* child process */
+                char p[50] = "/bin/";
+                strcat(p,input);
+                execlp(p, input, NULL); // A new program(ls executable is loaded into memory and executed
+            }
+            else
+            {
+                /* parent process */
+                /* parent will wait for the child to complete */
+                wait(NULL);
+                printf("Child Complete\n");
+            }
+            // system(input);
         }
         bzero(input, 50);
         scanf("%[^\n]%*c", input);
