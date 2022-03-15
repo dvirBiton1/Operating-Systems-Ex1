@@ -51,7 +51,13 @@ void powerServer()
         }
         bzero(buffer, 1024);
         recv(client_sock, buffer, sizeof(buffer), 0);
-        printf("Client: %s\n", buffer);
+        for (int i = 0; i < 1024; i++)
+        {
+            printf("%c",buffer[i]);
+        }
+        printf("\n");
+        
+        // printf("Client: %s\n", buffer);
         if (strncmp(buffer, "LOCAL", 5) == 0)
         {   
             printf("[+]Client and Server disconnected.\n\n");
