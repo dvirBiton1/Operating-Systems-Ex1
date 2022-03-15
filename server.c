@@ -56,9 +56,8 @@ void powerServer()
         {   
             printf("[+]Client and Server disconnected.\n\n");
             close(client_sock);
-            close(server_sock);
-            
-            return;
+            // close(server_sock);
+            flag = 1;
         }
     }
 }
