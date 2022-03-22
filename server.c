@@ -50,24 +50,19 @@ void powerServer()
             flag = 0;
         }
         bzero(buffer, 1024);
-        if(!recv(client_sock, buffer, sizeof(buffer), 0)){
+        if (!recv(client_sock, buffer, sizeof(buffer), 0))
+        {
             close(client_sock);
             flag = 1;
         }
-        for (int i = 0; i < 1024; i++)
+        else
         {
-            printf("%c",buffer[i]);
+            for (int i = 0; i < 1024; i++)
+            {
+                printf("%c", buffer[i]);
+            }
+            printf("\n");
         }
-        printf("\n");
-        
-        // printf("Client: %s\n", buffer);
-        // if (strncmp(buffer, "LOCAL", 5) == 0)
-        // {   
-        //     printf("[+]Client and Server disconnected.\n\n");
-        //     close(client_sock);
-        //     // close(server_sock);
-        //     flag = 1;
-        // }
     }
 }
 int main(int argc, char const *argv[])

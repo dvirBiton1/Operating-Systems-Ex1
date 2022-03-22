@@ -97,7 +97,6 @@ int main()
         else if (strncmp(input, "LOCAL", 5) == 0)
         {
             close(sock);
-            close(client_sock);
             dup2(480,1);
             printf("return to the local shell and the client disconnect\n");
             
