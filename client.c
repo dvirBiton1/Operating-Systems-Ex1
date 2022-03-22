@@ -10,7 +10,7 @@ void powerClient()
     char *ip = "127.0.0.1";
     int port = 5566;
 
-    int sock;
+
     struct sockaddr_in addr;
     socklen_t addr_size;
     char buffer[1024];
@@ -34,28 +34,28 @@ void powerClient()
     // strcpy(buffer, "HELLO, THIS IS CLIENT.");
     // printf("Client: %s\n", buffer);
     // send(sock, buffer, strlen(buffer), 0);
-    char input[50];
-    bzero(input, 50);
-    scanf("%[^\n]%*c", input);
-    int len = strlen(input);
-    while (strncmp(input, "LOCAL", 5) != 0)
-    {
+    // char input[50];
+    // bzero(input, 50);
+    // scanf("%[^\n]%*c", input);
+    // int len = strlen(input);
+    // while (strncmp(input, "LOCAL", 5) != 0)
+    // {
 
-        bzero(buffer, 1024);
-        for (int i = 0; i < 50; i++)
-        {
-            buffer[i] = input[i];
-        }
-        // printf("Client: %s\n", buffer);
-        send(sock, buffer, strlen(buffer), 0);
-        bzero(input, 50);
-        scanf("%[^\n]%*c", input);
-    }
-    bzero(buffer, 1024);
-    for (int i = 0; i < 50; i++)
-    {
-        buffer[i] = input[i];
-    }
-    // printf("Client: %s\n", buffer);
-    send(sock, buffer, strlen(buffer), 0);
+    //     bzero(buffer, 1024);
+    //     for (int i = 0; i < 50; i++)
+    //     {
+    //         buffer[i] = input[i];
+    //     }
+    //     // printf("Client: %s\n", buffer);
+    //     send(sock, buffer, strlen(buffer), 0);
+    //     bzero(input, 50);
+    //     scanf("%[^\n]%*c", input);
+    // }
+    // bzero(buffer, 1024);
+    // for (int i = 0; i < 50; i++)
+    // {
+    //     buffer[i] = input[i];
+    // }
+    // // printf("Client: %s\n", buffer);
+    // send(sock, buffer, strlen(buffer), 0);
 }

@@ -60,7 +60,11 @@ int main()
 {
     char input[50] = {0};
     pathFunc();
-    scanf("%[^\n]%*c", input);
+    if (!scanf("%[^\n]%*c", input))
+    {
+        while (getchar() != '\n')
+            ;
+    }
     int len = strlen(input);
     for (int i = 0; i < len; i++)
     {
@@ -87,6 +91,17 @@ int main()
         else if (strncmp(input, "TCP PORT", 8) == 0)
         {
             powerClient();
+            dup2(1,480);
+            dup2(sock, 1);
+        }
+        else if (strncmp(input, "LOCAL", 5) == 0)
+        {
+            close(sock);
+            close(client_sock);
+            dup2(480,1);
+            printf("return to the local shell and the client disconnect\n");
+            
+
         }
         /*
          chdir() changes the current working directory
@@ -166,7 +181,7 @@ int main()
             {
                 /* child process */
                 char p[50] = "/bin/";
-                strcat(p,input);
+                strcat(p, input);
                 execlp(p, input, NULL); // A new program(ls executable is loaded into memory and executed
             }
             else
@@ -179,7 +194,10 @@ int main()
             // system(input);
         }
         bzero(input, 50);
-        scanf("%[^\n]%*c", input);
+        if (!scanf("%[^\n]%*c", input))
+        {
+            while (getchar() != '\n');
+        }
     }
     printf("good bye\n");
 
