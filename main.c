@@ -39,21 +39,36 @@ void pathFunc()
 }
 void copySrcToDst(char *src, char *dst)
 {
-    char ch;
-    FILE *fpSrc = fopen(src, "r");
-    FILE *fpDst = fopen(dst, "a");
-    if (fpSrc == NULL || fpDst == NULL)
-    {
-        printf("Error in copy files\n");
-        exit(1);
-    }
-    while ((ch = fgetc(fpSrc)) != EOF)
-    {
-        fputc(ch, fpDst);
-    }
-    printf("File copied successfully.\n");
-    fclose(fpSrc);
-    fclose(fpDst);
+    FILE * filer, * filew;
+	int numr,numw;
+	char buffer[100];
+	
+	if((filer=fopen(src,"rb"))==NULL){
+		fprintf(stderr, "open read file error.\n");
+		exit(1);
+	}
+
+	if((filew=fopen(dst,"wb"))==NULL){
+		fprintf(stderr,"open write file error.\n");
+		exit(1);
+	}
+	while(feof(filer)==0){	
+	if((numr=fread(buffer,1,100,filer))!=100){
+		if(ferror(filer)!=0){
+		fprintf(stderr,"read file error.\n");
+		exit(1);
+		}
+		else if(feof(filer)!=0);
+	}
+	if((numw=fwrite(buffer,1,numr,filew))!=numr){
+		fprintf(stderr,"write file error.\n");
+		exit(1);
+	}
+	}	
+	
+	fclose(filer);
+	fclose(filew);
+    printf("\nThe file copy sucsessfuly\n");
 }
 
 int main()
@@ -70,9 +85,10 @@ int main()
     {
         printf("%c", input[i]);
     }
-    printf("\n");
+    // printf("\n");
     while (strcmp(input, "EXIT"))
     {
+        pathFunc();
         if (strncmp(input, "ECHO", 4) == 0)
         {
             printf(">>");
@@ -91,16 +107,14 @@ int main()
         else if (strncmp(input, "TCP PORT", 8) == 0)
         {
             powerClient();
-            dup2(1,480);
+            dup2(1, 480);
             dup2(sock, 1);
         }
         else if (strncmp(input, "LOCAL", 5) == 0)
         {
             close(sock);
-            dup2(480,1);
+            dup2(480, 1);
             printf("return to the local shell and the client disconnect\n");
-            
-
         }
         /*
          chdir() changes the current working directory
@@ -163,9 +177,7 @@ int main()
             unlink(path);
         }
         /*
-        The system() is library function uses fork(2)
-        to create a child process that executes the shell command specified
-        in command.
+        The system() is library function
         */
         else
         {
@@ -195,7 +207,8 @@ int main()
         bzero(input, 50);
         if (!scanf("%[^\n]%*c", input))
         {
-            while (getchar() != '\n');
+            while (getchar() != '\n')
+                ;
         }
     }
     printf("good bye\n");
