@@ -176,6 +176,10 @@ int main()
             }
             unlink(path);
         }
+        else if (strncmp(input, "EXIT", 4) == 0)
+        {
+            break;
+        }
         /*
         The system() is library function
         */
