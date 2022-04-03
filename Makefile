@@ -12,4 +12,4 @@ server.o: server.c Ex1.h
 client.o: client.c Ex1.h
 	gcc -c client.c 
 clean :
-	rm -f *.o
+	rm -f *.o server main

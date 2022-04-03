@@ -7,6 +7,8 @@
 #include <dirent.h>
 #include <sys/wait.h>
 #include "Ex1.h"
+
+//return all the files where you now work
 void dirFunc()
 {
     DIR *dir;
@@ -24,6 +26,8 @@ void dirFunc()
     closedir(dir);
     return;
 }
+
+//return the path where you now work
 void pathFunc()
 {
     char cwd[PATH_MAX];
@@ -37,6 +41,7 @@ void pathFunc()
         exit(1);
     }
 }
+//copy file1 to file2 with fread, fwrite, fopen 
 void copySrcToDst(char *src, char *dst)
 {
     FILE * filer, * filew;
@@ -71,14 +76,14 @@ void copySrcToDst(char *src, char *dst)
     printf("\nThe file copy sucsessfuly\n");
 }
 
+// the main work in simple way like switch case 
 int main()
 {
     char input[50] = {0};
     pathFunc();
     if (!scanf("%[^\n]%*c", input))
     {
-        while (getchar() != '\n')
-            ;
+        while (getchar() != '\n');
     }
     int len = strlen(input);
     for (int i = 0; i < len; i++)
