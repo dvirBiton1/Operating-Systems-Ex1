@@ -1,11 +1,4 @@
-#include <stdio.h>
-#include <string.h>
-#include <unistd.h>
-#include <limits.h>
-#include <stdlib.h>
-#include <sys/types.h>
-#include <dirent.h>
-#include <sys/wait.h>
+
 #include "Ex1.h"
 
 //return all the files where you now work
