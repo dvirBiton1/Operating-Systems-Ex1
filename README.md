@@ -9,6 +9,7 @@ how to run:
 
 4.run main by with command ./main
 
+server and client i take from youtube
 
 
 
