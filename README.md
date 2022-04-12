@@ -1,7 +1,10 @@
 # Operating-Systems-Ex1
-how to run:
+
 Dvir Biton 318765856
+
 Ohad Shirazi 318636693
+
+how to run:
 
 1.make
 
