@@ -1,8 +1,8 @@
 # Operating-Systems-Ex1
 
-Dvir Biton 318765856
+Dvir Biton
 
-Ohad Shirazi 318636693
+Ohad Shirazi
 
 how to run:
 
